@@ -1,6 +1,7 @@
 package br.com.erudio.restprojecterudio.exceptions.handler;
 
 import br.com.erudio.restprojecterudio.exceptions.ExceptionResponse;
+import br.com.erudio.restprojecterudio.exceptions.RequireObjectIsNullException;
 import br.com.erudio.restprojecterudio.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,4 +38,16 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
 
     }
+
+    @ExceptionHandler(RequireObjectIsNullException.class)
+    public final ResponseEntity<ExceptionResponse> handleBadRequestException(RequireObjectIsNullException ex, WebRequest request){
+
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
+
 }
