@@ -1,28 +1,16 @@
-package br.com.erudio.restprojecterudio.domain;
-
-import jakarta.persistence.*;
+package br.com.erudio.restprojecterudio.integrationtests.vo;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@Table(name = "person")
-public class Person implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PersonTestVO implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Long id;
-    @Column(name = "first_name", nullable = false)
     private String firstName;
-    @Column(name = "last_name", nullable = false)
     private String lastName;
-    @Column(nullable = false)
     private String address;
-    @Column(nullable = false)
-    private String gender;
 
-    public Person() {
-    }
+    private String gender;
 
     public Long getId() {
         return id;
@@ -30,6 +18,9 @@ public class Person implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public PersonTestVO() {
     }
 
     public String getFirstName() {
@@ -68,12 +59,12 @@ public class Person implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return Objects.equals(id, person.id) && Objects.equals(getFirstName(), person.getFirstName()) && Objects.equals(getLastName(), person.getLastName()) && Objects.equals(getAddress(), person.getAddress()) && Objects.equals(getGender(), person.getGender());
+        if (!super.equals(o)) return false;
+        PersonTestVO personVO = (PersonTestVO) o;
+        return Objects.equals(getId(), personVO.getId()) && Objects.equals(getFirstName(), personVO.getFirstName()) && Objects.equals(getLastName(), personVO.getLastName()) && Objects.equals(getAddress(), personVO.getAddress()) && Objects.equals(getGender(), personVO.getGender());
     }
-
     @Override
     public int hashCode() {
-        return Objects.hash(id, getFirstName(), getLastName(), getAddress(), getGender());
+        return Objects.hash(super.hashCode(), getId(), getFirstName(), getLastName(), getAddress(), getGender());
     }
 }
