@@ -1,10 +1,15 @@
 package br.com.erudio.restprojecterudio.integrationtests.vo;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.io.Serializable;
 import java.util.Objects;
 
-public class PersonTestVO implements Serializable {
+public class PersonVO implements Serializable {
     private static final long serialVersionUID = 1L;
+
     private Long id;
     private String firstName;
     private String lastName;
@@ -12,15 +17,15 @@ public class PersonTestVO implements Serializable {
 
     private String gender;
 
+    public PersonVO() {
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public PersonTestVO() {
     }
 
     public String getFirstName() {
@@ -59,12 +64,23 @@ public class PersonTestVO implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        PersonTestVO personVO = (PersonTestVO) o;
+        PersonVO personVO = (PersonVO) o;
         return Objects.equals(getId(), personVO.getId()) && Objects.equals(getFirstName(), personVO.getFirstName()) && Objects.equals(getLastName(), personVO.getLastName()) && Objects.equals(getAddress(), personVO.getAddress()) && Objects.equals(getGender(), personVO.getGender());
     }
+
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getId(), getFirstName(), getLastName(), getAddress(), getGender());
+        return Objects.hash(getId(), getFirstName(), getLastName(), getAddress(), getGender());
+    }
+
+    @Override
+    public String toString() {
+        return "PersonVO{" +
+                "key=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", gender='" + gender + '\'' +
+                '}';
     }
 }
