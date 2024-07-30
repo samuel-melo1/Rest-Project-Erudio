@@ -1,6 +1,7 @@
 package br.com.erudio.restprojecterudio.exceptions.handler;
 
 import br.com.erudio.restprojecterudio.exceptions.ExceptionResponse;
+import br.com.erudio.restprojecterudio.exceptions.InvalidJwtAuthenticationException;
 import br.com.erudio.restprojecterudio.exceptions.RequireObjectIsNullException;
 import br.com.erudio.restprojecterudio.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -47,6 +48,17 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
                 request.getDescription(false));
 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
+
+    @ExceptionHandler(InvalidJwtAuthenticationException.class)
+    public final ResponseEntity<ExceptionResponse> handleInvalidJwtAuthenticationException(InvalidJwtAuthenticationException ex, WebRequest request){
+
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.FORBIDDEN);
 
     }
 
