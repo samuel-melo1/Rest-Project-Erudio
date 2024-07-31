@@ -1,4 +1,4 @@
-package br.com.erudio.restprojecterudio.securityJwt;
+package br.com.erudio.restprojecterudio.security.jwt;
 
 import br.com.erudio.restprojecterudio.data.vo.v1.security.TokenVO;
 import br.com.erudio.restprojecterudio.exceptions.InvalidJwtAuthenticationException;
