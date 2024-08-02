@@ -20,7 +20,6 @@ public class AuthController {
     @Autowired
     private AuthService service;
 
-    @SuppressWarnings("rawtypes")
     @PostMapping("/signin")
     public ResponseEntity signin(@RequestBody AccountCredentialsVO data){
         if(checkIfParamsIsNotNull(data))

@@ -71,32 +71,30 @@ public class JwtTokenProvider {
                 .sign(algorithm)
                 .strip();
     }
-    public Authentication getAuthentication(String token){
+
+    public Authentication getAuthentication(String token) {
         DecodedJWT decodedJWT = decodedToken(token);
         UserDetails userDetails = this.userDetailsService
                 .loadUserByUsername(decodedJWT.getSubject());
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities()); 
+        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
+
     private DecodedJWT decodedToken(String token) {
         Algorithm alg = Algorithm.HMAC256(secretKey.getBytes());
         JWTVerifier verifier = JWT.require(alg).build();
         return verifier.verify(token);
     }
-    public String resolveToken(HttpServletRequest request){
-        String bearer = request.getHeader("Authorization");
-        if(bearer != null && bearer.startsWith("Bearer ")){
-            return bearer.substring("Bearer ".length());
-        }
-        return null;
+
+    public String resolveToken(HttpServletRequest request) {
+        var authHeader = request.getHeader("Authorization");
+        return authHeader == null ? null : authHeader.replace("Bearer ", "");
     }
-    public boolean validateToken(String token){
+
+    public boolean validateToken(String token) {
         DecodedJWT decodedJWT = decodedToken(token);
         try {
-            if(decodedJWT.getExpiresAt().before(new Date())){
-                return false;
-            }
-            return true;
-        }catch (Exception e){
+            return decodedJWT.getExpiresAt().before(new Date()) ? false : true;
+        } catch (Exception e) {
             throw new InvalidJwtAuthenticationException("Expired or invalid JWT Token!");
         }
     }

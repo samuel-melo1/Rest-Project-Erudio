@@ -17,14 +17,10 @@ public class AuthService {
 
     @Autowired
     private JwtTokenProvider tokenProvider;
-
     @Autowired
     private AuthenticationManager manager;
-
     @Autowired
     private UserRepository repository;
-
-
     @SuppressWarnings("rawtypes")
     public ResponseEntity signin(AccountCredentialsVO data){
         try {
