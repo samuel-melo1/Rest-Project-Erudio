@@ -32,6 +32,14 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/signin").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/person/v1").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/person/v1/{id}").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/person/v1").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/person/v1/{id}").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/books/v1").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/books/v1").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/books/v1").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/books/v1/{id}").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/books/v1/{id}").authenticated()
+                        .requestMatchers(AUTH_WHITELIST).permitAll()
                 )
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .build();
@@ -53,5 +61,13 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
+
+    public static final String[] AUTH_WHITELIST = {
+            "/api/v1/auth/**",
+            "/v3/api-docs/**",
+            "/v3/api-docs.yaml",
+            "/swagger-ui.html",
+            "/swagger-ui/**"
+    };
 
 }
