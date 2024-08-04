@@ -40,8 +40,8 @@ public class User implements Serializable, UserDetails {
 
     public List<String> getRoles(){
         List<String> roles = new ArrayList<>();
-        for(Permission permissin: permissions){
-            roles.add(permissin.getDescription());
+        for(Permission permission: permissions){
+            roles.add(permission.getDescription());
         }
         return roles;
     }
