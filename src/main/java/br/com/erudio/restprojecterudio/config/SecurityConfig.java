@@ -30,6 +30,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/signin").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/person/v1").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/person/v1").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/person/v1/{id}").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/api/person/v1").authenticated()
